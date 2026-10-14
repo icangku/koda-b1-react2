@@ -4,16 +4,18 @@ function UserSearch() {
   const [users, setUser] = useState([]);
   const [query, setQuery] = useState("");
 
-  function findUser(event) {
+  async function findUser(event) {
     event.preventDefault();
-    const url = `https://jsonplaceholder.typicode.com/users?username=${query}`;
-    fetch(url)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setUser(data);
-      });
+    const url = query
+      ? `https://jsonplaceholder.typicode.com/users?username=${query}`
+      : `https://jsonplaceholder.typicode.com/users`;
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      setUser(data);
+    } catch (error) {
+      console.log(`Error: ${error}`);
+    }
   }
 
   const handleInputChange = (event) => {
@@ -22,14 +24,17 @@ function UserSearch() {
 
   return (
     <>
-      <section>
-        <form onSubmit={findUser}>
+      <section className="realtive mx-2">
+        <div className="flex py-2 ">
+          <h1 className="text-xl">Looking for a user?</h1>
+        </div>
+        <form onSubmit={findUser} className="flex">
           <input
             type="text"
             value={query}
             onChange={handleInputChange}
             placeholder="Ketik untuk mencari"
-            className="p-2 border border-2 rounded-md border-blue-300 shadow-amber-100 shadow-2xl"
+            className="p-2 border-2 rounded-md border-blue-300 shadow-amber-100 shadow-2xl"
             id=""
           />
           <button
@@ -41,20 +46,24 @@ function UserSearch() {
         </form>
 
         {users.length > 0 ? (
-          <ul>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
             {users.map((item, index) => (
-              <li key={index}>
-                <p>Name: {item.name}</p>
-                <p>Website: {item.website}</p>
-                <p>Username: {item.username}</p>
-                <p>Phone: {item.phone}</p>
+              <div
+                key={index}
+                class="bg-white p-6 rounded-sm shadow-xs border border-gray-100"
+              >
+                <h3 class="font-bold text-lg text-gray-800">{item.name}</h3>
+                <p class="text-gray-600 mt-2">Username: {item.username}</p>
+                <p class="text-gray-600 mt-2">Website: {item.website}</p>
+                <p class="text-gray-600 mt-2">Phone: {item.phone}</p>
+
                 <address>
                   {item.address.street},{item.address.suite},{" "}
                   {item.address.zipcode}
                 </address>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         ) : (
           <p>Data tidak ditemukan</p>
         )}
