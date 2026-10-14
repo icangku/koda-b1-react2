@@ -6,6 +6,8 @@ function Contact() {
     email: "",
     message: "",
     age: 0,
+    gender: "",
+    bitcoinWalletAddress: "",
   });
 
   const [messages, setMessages] = useState(() => {
@@ -40,6 +42,8 @@ function Contact() {
       email: contact.email,
       message: contact.message,
       age: contact.age,
+      gender: contact.gender,
+      bitcoinWalletAddress: contact.bitcoinWalletAddress,
     };
 
     setMessages((prev) => [newMessage, ...prev]);
@@ -49,6 +53,8 @@ function Contact() {
       email: "",
       message: "",
       age: 0,
+      gender: "",
+      bitcoinWalletAddress: "",
     });
   };
 
@@ -82,6 +88,54 @@ function Contact() {
               value={contact.email}
               required
             />
+            <div className="flex items-center gap-4">
+              <span className="input-label font-medium">Gender</span>
+              <div className="flex items-center gap-1">
+                <input
+                  id="gender-pria"
+                  type="radio"
+                  name="gender"
+                  value="Pria"
+                  onChange={handleChange}
+                  checked={contact.gender === "Pria"}
+                  required
+                />
+                <label htmlFor="gender-pria" className="cursor-pointer">
+                  Pria
+                </label>
+              </div>
+
+              <div className="flex items-center gap-1">
+                <input
+                  id="gender-wanita"
+                  type="radio"
+                  name="gender"
+                  value="Wanita"
+                  onChange={handleChange}
+                  checked={contact.gender === "Wanita"}
+                  required
+                />
+                <label htmlFor="gender-wanita" className="cursor-pointer">
+                  Wanita
+                </label>
+              </div>
+            </div>
+            <div className="flex flex-col gap-1 mb-4">
+              <label
+                htmlFor="bitcoin-address"
+                className="input-label font-medium"
+              >
+                Bitcoin Wallet Address
+              </label>
+              <input
+                id="bitcoin-address"
+                type="text"
+                name="bitcoinWalletAddress"
+                onChange={handleChange}
+                value={contact.bitcoinWalletAddress}
+                className="input-custom"
+              />
+            </div>
             <label htmlFor="name" className="input-label">
               Message
             </label>
@@ -103,12 +157,12 @@ function Contact() {
               className="input-custom"
               required
             >
+              <option value="">Pilih Umur</option>
               <option value="20">20</option>
               <option value="23">23</option>
               <option value="22">22</option>
               <option value="21">21</option>
             </select>
-
             <button className="p-3 rounded-2xl my-2 text-white bg-blue-400 hover:bg-blue-500">
               Save
             </button>
@@ -126,8 +180,11 @@ function Contact() {
                 className="rounded-lg border border-slate-200 p-4"
               >
                 <h3 className="font-semibold">
-                  {item.name} ({item.age}yrs)
+                  {item.name} ({item.gender} - {item.age}yrs)
                 </h3>
+                <p className="text-sm text-slate-500">
+                  {item.bitcoinWalletAddress}
+                </p>
                 <p className="text-sm text-slate-500">{item.email}</p>
                 <p className="mt-2 whitespace-pre-wrap wrap-break-word text-slate-700">
                   {item.message}
