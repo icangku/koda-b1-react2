@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from "react-router";
 
-function Hero() {
+function Home() {
   return (
     <>
       <section className="bg-amber-300">
@@ -8,7 +9,7 @@ function Hero() {
           <h1 class="mb-6 text-4xl font-bold tracking-tighter md:text-5xl lg:text-6xl">
             We invest in the world’s potential
           </h1>
-          <p class="mb-8 text-base font-normal text-body md:text-xl">
+          <p class="mb-8 text-base font-normal md:text-xl">
             Here at Flowbite we focus on markets where technology, innovation,
             and capital can unlock long-term value and drive economic growth.
           </p>
@@ -49,4 +50,4 @@ function Hero() {
   );
 }
 
-export default Hero;
+export default Home;

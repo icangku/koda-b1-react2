@@ -1,16 +1,15 @@
-// import { useState } from "react";
-// import reactLogo from "./assets/react.svg";
-// import viteLogo from "./assets/vite.svg";
-// import heroImg from "./assets/hero.png";
-import Hero from "./components/Hero";
-import UserSearch from "./components/UserSearch";
+import { Link } from "react-router";
 import "./App.css";
+import Links from "./components/Links";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <>
-      <Hero />
-      <UserSearch />
+      <Navbar />
+      <main className="pt-16 min-h-screen bg-gray-50">
+        <Links />
+      </main>
     </>
   );
 }
